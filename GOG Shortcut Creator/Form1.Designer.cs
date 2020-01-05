@@ -1,4 +1,4 @@
-﻿namespace GOG_Shortcut_Creator
+namespace GOG_Shortcut_Creator
 {
     partial class Main
     {
@@ -31,7 +31,7 @@
             this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textBoxGalaxyClient = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxGames = new System.Windows.Forms.ListBox();
             this.browseGalaxyClient = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -64,14 +64,14 @@
             this.textBoxGalaxyClient.TabIndex = 4;
             this.textBoxGalaxyClient.Text = "C:\\Program Files (x86)\\GOG Galaxy\\GalaxyClient.exe";
             // 
-            // listBox1
+            // listBoxGames
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(434, 355);
-            this.listBox1.TabIndex = 5;
-            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.listBoxGames.FormattingEnabled = true;
+            this.listBoxGames.Location = new System.Drawing.Point(12, 12);
+            this.listBoxGames.Name = "listBoxGames";
+            this.listBoxGames.Size = new System.Drawing.Size(434, 355);
+            this.listBoxGames.TabIndex = 5;
+            this.listBoxGames.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // browseGalaxyClient
             // 
@@ -94,10 +94,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 432);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxGames);
             this.Controls.Add(this.textBoxGalaxyClient);
             this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.buttonCreate);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "GOG 2.0 Shortcut Creator";
             this.ResumeLayout(false);
@@ -109,7 +111,7 @@
         private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.Button buttonBrowse;
         public System.Windows.Forms.TextBox textBoxGalaxyClient;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxGames;
         private System.Windows.Forms.OpenFileDialog browseGalaxyClient;
         private System.Windows.Forms.Label label1;
     }
