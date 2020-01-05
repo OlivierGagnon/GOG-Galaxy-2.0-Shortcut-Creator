@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,9 +51,9 @@ namespace GOG_Shortcut_Creator
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             Game game = (Game)listBox1.SelectedItem;
-            CreateShortcut(game);
+            CreateShortcut(game, textBoxGalaxyClient.Text);
         }
-        public static void CreateShortcut(Game game)
+        public static void CreateShortcut(Game game, string path)
         {
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             foreach (char c in invalid)
@@ -63,8 +63,7 @@ namespace GOG_Shortcut_Creator
             string shortcutLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), game.name + ".lnk");
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
-            shortcut.Description = $"Launch {game.name} through GOG Galaxy 2.0";
-            string path = "C:\\Program Files (x86)\\GOG Galaxy\\GalaxyClient.exe";
+            shortcut.Description = $"Launch {game.name} through GOG Galaxy 2.0";            
             string args = "/command=runGame /gameId=" + game.gameId;
             shortcut.TargetPath = path;
             shortcut.Arguments = args;
@@ -74,7 +73,7 @@ namespace GOG_Shortcut_Creator
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             Game game = (Game)listBox1.SelectedItem;
-            CreateShortcut(game);
+            CreateShortcut(game, textBoxGalaxyClient.Text);
         }
     }
     public class Game
