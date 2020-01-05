@@ -1,11 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using IWshRuntimeLibrary;
@@ -17,8 +11,28 @@ namespace GOG_Shortcut_Creator
     {        public Main()
         {
             InitializeComponent();
-            listBox1.Select();
+            listBoxGames.Select();
+            List<Game> games = BuildList();
+            foreach (Game game in games)
+            {
+                listBoxGames.Items.Add(game);
+            }
+        }
+        public static List<Game> BuildList()
+        {
             List<Game> games = new List<Game>();
+            SQLiteDataReader rdr = GetDB();
+            while (rdr.Read())
+            {
+                Game game = new Game();
+                game.name = rdr.GetString(1);
+                game.gameId = rdr.GetString(0);
+                games.Add(game);
+            }
+            return games;
+        }
+        public static SQLiteDataReader GetDB()
+        {
             string cs = @"Data Source=C:\ProgramData\GOG.com\Galaxy\storage\galaxy-2.0.db;Version=3;";
             SQLiteConnection con = new SQLiteConnection(cs);
             con.Open();
@@ -31,29 +45,8 @@ namespace GOG_Shortcut_Creator
                             SELECT 'gog_' || productId FROM InstalledProducts)
                             AND GamePieceTypes.type = 'originalTitle'";
             SQLiteCommand cmd = new SQLiteCommand(stm, con);
-            SQLiteDataReader rdr = cmd.ExecuteReader();            
-            while (rdr.Read())
-            {
-                Game game = new Game();
-                game.name = rdr.GetString(1);
-                game.gameId = rdr.GetString(0);                
-                games.Add(game);
-                listBox1.Items.Add(game);
-            }
-        }
-
-        private void buttonBrowse_Click(object sender, EventArgs e)
-        {
-            if (browseGalaxyClient.ShowDialog() == DialogResult.OK)
-            {
-                string file = browseGalaxyClient.FileName;
-                textBoxGalaxyClient.Text = file;
-            }
-        }
-        private void buttonCreate_Click(object sender, EventArgs e)
-        {
-            Game game = (Game)listBox1.SelectedItem;
-            CreateShortcut(game, textBoxGalaxyClient.Text);
+            SQLiteDataReader rdr = cmd.ExecuteReader();
+            return rdr;
         }
         public static void CreateShortcut(Game game, string path)
         {
@@ -65,16 +58,27 @@ namespace GOG_Shortcut_Creator
             string shortcutLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), game.name + ".lnk");
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
-            shortcut.Description = $"Launch {game.name} through GOG Galaxy 2.0";            
-            string args = "/command=runGame /gameId=" + game.gameId;
+            shortcut.Description = $"Launch {game.name} through GOG Galaxy 2.0";
             shortcut.TargetPath = path;
-            shortcut.Arguments = args;
+            shortcut.Arguments = "/command=runGame /gameId=" + game.gameId; ;
             shortcut.Save();
         }
-
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            if (browseGalaxyClient.ShowDialog() == DialogResult.OK)
+            {
+                string file = browseGalaxyClient.FileName;
+                textBoxGalaxyClient.Text = file;
+            }
+        }
+        private void buttonCreate_Click(object sender, EventArgs e)
+        {
+            Game game = (Game)listBoxGames.SelectedItem;
+            CreateShortcut(game, textBoxGalaxyClient.Text);
+        }
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            Game game = (Game)listBox1.SelectedItem;
+            Game game = (Game)listBoxGames.SelectedItem;
             CreateShortcut(game, textBoxGalaxyClient.Text);
         }
     }
