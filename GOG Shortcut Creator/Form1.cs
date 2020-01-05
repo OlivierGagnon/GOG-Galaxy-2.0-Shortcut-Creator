@@ -25,8 +25,10 @@ namespace GOG_Shortcut_Creator
             string stm = @"SELECT trim(GamePieces.releaseKey,'gog_'), trim(trim(GamePieces.value,'{""title"":""'),'""}') FROM GamePieces
                             JOIN GamePieceTypes ON GamePieces.gamePieceTypeId = GamePieceTypes.id
                             WHERE releaseKey IN
-                            (SELECT Platforms.name || '_' || InstalledExternalProducts.productId FROM InstalledExternalProducts
-                            JOIN Platforms ON InstalledExternalProducts.platformId = Platforms.id)
+                            (SELECT platforms.name || '_' || InstalledExternalProducts.productId FROM InstalledExternalProducts
+                            JOIN Platforms ON InstalledExternalProducts.platformId = Platforms.id
+                            UNION
+                            SELECT 'gog_' || productId FROM InstalledProducts)
                             AND GamePieceTypes.type = 'originalTitle'";
             SQLiteCommand cmd = new SQLiteCommand(stm, con);
             SQLiteDataReader rdr = cmd.ExecuteReader();            
