@@ -1,0 +1,1 @@
+# GOG-Galaxy-2.0-Shortcut-Creator
