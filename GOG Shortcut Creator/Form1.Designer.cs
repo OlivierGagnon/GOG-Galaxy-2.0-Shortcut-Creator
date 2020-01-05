@@ -108,7 +108,7 @@
         #endregion
         private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.Button buttonBrowse;
-        private System.Windows.Forms.TextBox textBoxGalaxyClient;
+        public System.Windows.Forms.TextBox textBoxGalaxyClient;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.OpenFileDialog browseGalaxyClient;
         private System.Windows.Forms.Label label1;
