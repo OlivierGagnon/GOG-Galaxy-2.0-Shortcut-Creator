@@ -12,4 +12,4 @@ KNOWN ISSUES:
 
 - All rockstar games in your library will show as installed, even if they are not.
 - ~~The icon will be GOG Galaxy icon. You gotta change it manually :(~~
-- ~~If you click create shortcut without having selected a row, or double click the empty white space in the box, you'll get an error. Just click continue~~~
+- ~~If you click create shortcut without having selected a row, or double click the empty white space in the box, you'll get an error. Just click continue~~
