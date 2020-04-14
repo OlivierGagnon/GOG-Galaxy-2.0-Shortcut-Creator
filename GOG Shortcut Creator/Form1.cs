@@ -13,6 +13,8 @@ namespace GOG_Shortcut_Creator
         {
             InitializeComponent();
 
+            Icon = Properties.Resources.GalaxyClientIcon;
+
             listBoxGames.Select();
             List<Game> games = BuildList();
 
