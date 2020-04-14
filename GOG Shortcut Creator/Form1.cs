@@ -22,7 +22,7 @@ namespace GOG_Shortcut_Creator
             }
         }
 
-        public static List<Game> BuildList()
+        public List<Game> BuildList()
         {
             List<Game> games = new List<Game>();
             SQLiteDataReader rdr = GetDB();
@@ -38,7 +38,7 @@ namespace GOG_Shortcut_Creator
             return games;
         }
 
-        public static SQLiteDataReader GetDB()
+        public SQLiteDataReader GetDB()
         {
             string cs = @"Data Source=C:\ProgramData\GOG.com\Galaxy\storage\galaxy-2.0.db;Version=3;";
             SQLiteConnection con = new SQLiteConnection(cs);
@@ -60,7 +60,7 @@ namespace GOG_Shortcut_Creator
             return rdr;
         }
 
-        public static void CreateShortcut(Game game, string path)
+        public void CreateShortcut(Game game, string path)
         {
             // Check if GalaxyClient is reachable
             if (!System.IO.File.Exists(path))
@@ -82,7 +82,15 @@ namespace GOG_Shortcut_Creator
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
             shortcut.Description = $"Launch {game.name} through GOG Galaxy 2.0";
             shortcut.TargetPath = path;
-            shortcut.Arguments = "/command=runGame /gameId=" + game.gameId; ;
+            shortcut.Arguments = "/command=runGame /gameId=" + game.gameId;
+            shortcut.WorkingDirectory = Path.GetDirectoryName(path);
+
+            // Icon
+            string icon = IconPickerDialog.PickIcon(Handle);
+            if (!string.IsNullOrEmpty(icon))
+            {
+                shortcut.IconLocation = icon;
+            }
 
             shortcut.Save();
         }
