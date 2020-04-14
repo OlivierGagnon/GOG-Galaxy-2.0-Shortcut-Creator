@@ -38,6 +38,7 @@ namespace GOG_Shortcut_Creator
             // 
             // buttonCreate
             // 
+            this.buttonCreate.Enabled = false;
             this.buttonCreate.Location = new System.Drawing.Point(12, 402);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(156, 23);
@@ -71,6 +72,7 @@ namespace GOG_Shortcut_Creator
             this.listBoxGames.Name = "listBoxGames";
             this.listBoxGames.Size = new System.Drawing.Size(434, 355);
             this.listBoxGames.TabIndex = 5;
+            this.listBoxGames.SelectedIndexChanged += new System.EventHandler(this.listBoxGames_SelectedIndexChanged);
             this.listBoxGames.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // browseGalaxyClient

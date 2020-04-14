@@ -73,6 +73,11 @@ namespace GOG_Shortcut_Creator
         }
         private void buttonCreate_Click(object sender, EventArgs e)
         {
+            if (listBoxGames.SelectedItem == null)
+            {
+                return;
+            }
+
             Game game = (Game)listBoxGames.SelectedItem;
             CreateShortcut(game, textBoxGalaxyClient.Text);
         }
@@ -80,6 +85,11 @@ namespace GOG_Shortcut_Creator
         {
             Game game = (Game)listBoxGames.SelectedItem;
             CreateShortcut(game, textBoxGalaxyClient.Text);
+        }
+
+        private void listBoxGames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonCreate.Enabled = listBoxGames.SelectedItem != null;
         }
     }
     public class Game
