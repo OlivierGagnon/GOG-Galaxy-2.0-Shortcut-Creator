@@ -83,6 +83,11 @@ namespace GOG_Shortcut_Creator
         }
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            if (listBoxGames.SelectedItem == null)
+            {
+                return;
+            }
+
             Game game = (Game)listBoxGames.SelectedItem;
             CreateShortcut(game, textBoxGalaxyClient.Text);
         }
