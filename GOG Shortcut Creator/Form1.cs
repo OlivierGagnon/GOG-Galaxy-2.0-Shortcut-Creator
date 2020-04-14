@@ -50,6 +50,13 @@ namespace GOG_Shortcut_Creator
         }
         public static void CreateShortcut(Game game, string path)
         {
+            // Check if GalaxyClient is reachable
+            if (!System.IO.File.Exists(path))
+            {
+                MessageBox.Show("Invalid GalaxyClient path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             foreach (char c in invalid)
             {
